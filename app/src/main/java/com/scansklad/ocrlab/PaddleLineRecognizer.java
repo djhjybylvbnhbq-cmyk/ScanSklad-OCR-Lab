@@ -96,7 +96,15 @@ public final class PaddleLineRecognizer implements AutoCloseable {
             float[][][] probs = (float[][][]) value;
             if (probs.length != 1 || probs[0].length == 0) throw new IllegalStateException("Invalid output shape");
             int classes = probs[0][0].length;
-            // CTC blank is 0, the model's YAML vocabulary begins at index 1.
+            // PP-OCRv5 Cyrillic's exported CTC head has a trailing SPACE class.
+            // The model's inference.yml lists 850 characters, but the head emits
+            // 852 classes: CTC blank (0), the 850 YAML chars (1..850), SPACE (851).
+            // Add only the final SPACE; never shift the existing character IDs.
+            // Keep rejecting any other shape/dictionary mismatch instead of
+            // silently producing potentially incorrect warehouse addresses.
+            if (classes == alphabet.size() + 2 && !alphabet.contains(" ")) {
+                alphabet.add(" ");
+            }
             if (classes != alphabet.size() + 1) {
                 throw new IllegalStateException(String.format(Locale.ROOT,
                         "Character dictionary mismatch: model=%d, yaml=%d+blank", classes, alphabet.size()));
