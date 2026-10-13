@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#145826"
+        android:text="ScanSklad · тест PaddleOCR"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="19sp"
+        android:gravity="center_vertical"
+        android:padding="16dp" />
+
+    <FrameLayout
+        android:id="@+id/scanHolder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.1"
+        android:background="#111111">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:implementationMode="compatible"
+            app:scaleType="fillCenter" />
+
+        <View
+            android:id="@+id/targetFrame"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/scan_frame" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_margin="12dp"
+            android:background="#C9000000"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="Поместите ОДНУ строку адреса внутрь рамки"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/scanButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="СКАНИРОВАТЬ" android:textSize="12sp"/>
+            <Button android:id="@+id/autoButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="АВТО: ВЫКЛ" android:textSize="12sp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:text="Загрузка русской OCR-модели..."
+            android:textColor="#666666"
+            android:textSize="13sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PaddleOCR · кириллица (новый)"
+            android:textColor="#145826"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/paddleResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
+            android:paddingVertical="6dp"
+            android:text="—"
+            android:textColor="#161616"
+            android:textIsSelectable="true"
+            android:textSize="21sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ML Kit · латиница (сырой OCR без правил v2.0)"
+            android:textColor="#555555"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/mlResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
+            android:paddingVertical="6dp"
+            android:text="—"
+            android:textColor="#222222"
+            android:textIsSelectable="true"
+            android:textSize="21sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Что написано на этикетке на самом деле?"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+        <EditText
+            android:id="@+id/expectedInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:hint="Например: 142/П12/1"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:textColor="#111111"
+            android:textColorHint="#888888"
+            android:textSize="18sp" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/saveButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="ЗАПОМНИТЬ ТЕСТ" android:textSize="12sp" />
+            <Button android:id="@+id/shareButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="ОТПРАВИТЬ ОТЧЁТ" android:textSize="12sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/countText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Записано тестов: 0"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
